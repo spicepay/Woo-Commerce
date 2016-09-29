@@ -1,0 +1,16 @@
+
+Installation guide
+
+    Download the package.
+    Copy package contents to //wp-content/plugins/
+    Go to "Plugins->installed" and click "Activate" on SpicePay plugin.
+    WooCommerce -> Settings -> Payments -> SpicePay
+    Enter correct values to fields "Spicepay Site ID", "Spicepay Callback Secret" from SpicePay "Tools" page. Click "Save changes".
+
+Инструкция по установке
+
+    Скачайте архив с модулем.
+    Скопируйте содержимое архива в директорию /<корень сайта>/wp-content/plugins/
+    Зайдите в плагины->установленные и нажмите "активировать" напротив плагина SpicePay
+    Выберите в меню WooCommerce -> Настройки и перейдите на вкладку Платежи, затем выберите подвкладку SpicePay
+    В поля Spicepay Site ID и Spicepay Callback Secret скопируйте публичный и секретный ключ, которые вы можете взять из личного кабинета SpicePay. Нажмите на кнопку "Сохранить изменения"
