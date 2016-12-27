@@ -6,16 +6,14 @@ Installation guide
 1. Download the package.
 2. Copy package contents to /<site_root>/wp-content/plugins/
 3. Go to "Plugins->installed" and click "Activate" on SpicePay plugin.
-4. WooCommerce -> Settings -> Payments -> SpicePay
-5. Enter correct values to fields "Spicepay Site ID", "Spicepay Callback Secret" from SpicePay "Tools" page. Click "Save changes".
+4. WooCommerce -> Settings -> Checkout -> SpicePay
+5. Set module settings:  
+SpicePay site ID:  add new site on https://www.spicepay.com/tools.php, set in module settings site ID.
+Spicepay Callback Secret: - set the same random secret string at when adding site and in opencart2 spicepay module settings. 
+callback URL: http://your-site.com/?wc-api=WC_Gateway_Spicepay
 
+6. Click "Save changes".
 
+Find more info on https://www.spicepay.com
 
-Инструкция по установке
-
-1. Скачайте  архив с модулем.
-2. Скопируйте содержимое архива в директорию /<корень сайта>/wp-content/plugins/
-3. Зайдите в плагины->установленные и нажмите "активировать" напротив плагина SpicePay
-4. Выберите в меню WooCommerce -> Настройки и перейдите на вкладку Платежи, затем выберите подвкладку SpicePay
-5. В поля Spicepay Site ID и Spicepay Callback Secret скопируйте публичный и секретный ключ, которые вы можете взять из личного кабинета SpicePay. Нажмите на кнопку "Сохранить изменения"
-
+SpicePay Team
