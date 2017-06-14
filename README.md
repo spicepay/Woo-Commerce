@@ -10,7 +10,7 @@ Installation guide
 5. Set module settings:  
 SpicePay site ID:  add new site on https://www.spicepay.com/tools.php, set in module settings site ID.
 Spicepay Callback Secret: - set the same random secret string at when adding site and in opencart2 spicepay module settings. 
-callback URL: http://your-site.com/?wc-api=WC_Gateway_Spicepay
+callback URL: http://your-site.com/?wc-api=WC_Spicepay
 
 6. Click "Save changes".
 
