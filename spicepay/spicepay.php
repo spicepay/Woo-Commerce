@@ -36,6 +36,7 @@ class WC_SPICEPAY extends WC_Payment_Gateway{
     // Define user set variables
     $this->public_key = $this->get_option('public_key');
     $this->secret_key = $this->get_option('secret_key');
+    $this->select_currency = $this->get_option('select_currency');
     $this->title = 'Cryptocurrency payments';
     $this->description = 'Pay with Bitcoin or Litecoin or Bitcoin Cash or other cryptocurrencies via SpicePay';
 
@@ -86,8 +87,19 @@ function init_form_fields(){
             'type' => 'text',
             'description' => __('Copy SECRET KEY from spicepay.com/tools.php', 'woocommerce'),
             'default' => ''
+        ),
+        'select_currency' => array(
+            'title' => __('Currency', 'woocommerce'),
+            'type' => 'select',
+            'description' => __('Select currency', 'woocommerce'),
+            'default' => '',
+            'options' => array(
+                'USD' => 'USD',
+                'EUR' => 'EUR',
+                'GBP' => 'GBP'
+            ) 
         )
-
+        
     );
 }
 
@@ -99,11 +111,10 @@ public function generate_form($order_id){
 
     $sum = number_format($order->get_total(), 2, '.', '');
     $account = $order_id;
-    
-    
+
     $code = '<form id="spicepaypaymentmethod" name="spicepaypaymentmethod" action="https://www.spicepay.com/p.php" method="POST">'
     . '<input type="hidden" name="amount" value="' . $sum . '" />'
-    . '<input type="hidden" name="currency" value="USD" />'
+    . '<input type="hidden" name="currency" value="' . $this->select_currency . '" />'
     . '<input type="hidden" name="orderId" value="' . $order_id . '"/>'
     . '<input type="hidden" name="siteId" value="' . $this->public_key . '"/>'
     . '<input type="hidden" name="language" value="en"/>'
