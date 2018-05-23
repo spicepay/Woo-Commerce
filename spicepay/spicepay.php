@@ -173,7 +173,8 @@ function callback(){
 		$order = wc_get_order( $orderId );
 		$hashString = $secretCode . $paymentId . $orderId . $clientId . $paymentCryptoAmount . $paymentAmountUSD . $receivedCryptoAmount . $receivedAmountUSD . $status;
         write_log('Order ID '.$order->get_id());
-        if (!empty($order->get_id())) {
+        $order_id_check=$order->get_id();
+        if (!empty($order_id_check)) {
             write_log('Hash compare '.md5($hashString).' - '.$hash);
 							
 			if (0 == strcmp(md5($hashString), $hash)) {
