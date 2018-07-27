@@ -96,7 +96,8 @@ function init_form_fields(){
             'options' => array(
                 'USD' => 'USD',
                 'EUR' => 'EUR',
-                'GBP' => 'GBP'
+                'GBP' => 'GBP',
+                'CAD' => 'CAD'
             ) 
         )
         
