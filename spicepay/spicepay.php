@@ -3,7 +3,7 @@
 Plugin Name: SpicePay
 Plugin URI:  https://www.spicepay.com/
 Description: SpicePay Plugin for WooCommerce
-Version: 1.0.1
+Version: 1.0.2
 Author: SpicePay
 Author URI: https://www.spicepay.com
  */
@@ -37,6 +37,8 @@ class WC_SPICEPAY extends WC_Payment_Gateway{
     $this->public_key = $this->get_option('public_key');
     $this->secret_key = $this->get_option('secret_key');
     $this->select_currency = $this->get_option('select_currency');
+    $this->order_status_before = $this->get_option('order_status_before');
+    $this->order_status_after = $this->get_option('order_status_after');
     $this->title = 'Cryptocurrency payments';
     $this->description = 'Pay with Bitcoin or Litecoin or Bitcoin Cash or other cryptocurrencies via SpicePay';
 
@@ -99,7 +101,37 @@ function init_form_fields(){
                 'GBP' => 'GBP',
                 'CAD' => 'CAD'
             ) 
-        )
+        ),
+        'order_status_before' => array(
+            'title' => __('Order status before payment', 'woocommerce'),
+            'type' => 'select',
+            'description' => __('Select the order status before payment', 'woocommerce'),
+            'default' => 'pending',
+            'options' => array(
+                'processing' => 'Processing',
+                'on-hold' => 'On-hold',
+                'pending' => 'Pending',
+                'failed' => 'Failed',
+                'cancelled' => 'Cancelled',
+                'refunded' => 'Refunded',
+                'completed' => 'Completed'
+            ) 
+        ),
+        'order_status_after' => array(
+            'title' => __('Order status after payment', 'woocommerce'),
+            'type' => 'select',
+            'description' => __('Select the order status after payment', 'woocommerce'),
+            'default' => 'processing',
+            'options' => array(
+                'processing' => 'Processing',
+                'on-hold' => 'On-hold',
+                'pending' => 'Pending',
+                'failed' => 'Failed',
+                'cancelled' => 'Cancelled',
+                'refunded' => 'Refunded',
+                'completed' => 'Completed'
+            ) 
+        ),
         
     );
 }
@@ -109,6 +141,11 @@ function init_form_fields(){
  **/
 public function generate_form($order_id){
     $order = wc_get_order( $order_id );
+
+	$order_value = new WC_Order($order_id);
+	if (!empty($order_value)) {
+	 $order_value->update_status($this->order_status_before);
+	}
     // print_r($order);
     // exit();
     $firstname = $order->get_billing_first_name();
@@ -142,6 +179,7 @@ function process_payment($order_id){
         'result' => 'success',
         'redirect'	=> add_query_arg('order-pay', $order->get_id(), add_query_arg('key', $order->get_order_key(), get_permalink(wc_get_page_id('pay'))))
     );
+
 }
 
 function receipt_page($order){
@@ -190,7 +228,11 @@ function callback(){
 							echo  'bad amount';
 							write_log('bad amount');
 				  } else {
-						$order->payment_complete();
+						$order_value = new WC_Order($order->get_id());
+
+						if (!empty($order_value)) {
+						 $order_value->update_status($this->order_status_after);
+						}
 					  echo 'OK';
 					  write_log('OK');
 				  
